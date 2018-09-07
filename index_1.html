@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bars example</title>
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="vendor/jquery-ui-1.12.1/external/jquery/jquery.js"></script>
+<script src="vendor/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+
+    <!-- Photon.css -->
+    <link rel="stylesheet" href="photon/css/photon.min.css">
+
+ 
+  
+    
+    <script src=" https://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script> 
+  
+  <script>
+  $( function() {
+    $( "#tabs" ).tabs();
+  } );
+  </script>
+
+    <!-- Blockly -->
+    <script src="blockly/blockly_compressed.js"></script>
+    <script src="blockly/blocks_compressed.js"></script>
+    <script src="blockly/javascript_compressed.js"></script> <!-- TODO: Aqui se hace el traductor a processing -->
+    <script src="blockly/msg/js/es.js"></script>
+    <script src="custom_dialog.js"></script> <!-- Electron no soporta prompt() asi que aqui hay una implementacion html de los dialogos -->
+ 
+    <link id="blocklycss" rel="stylesheet" data-rtl="https://pxt.azureedge.net/blob/d28329dfbbb74f842fc2122f503b09cb974accf3/rtlblockly.css" href="https://pxt.azureedge.net/blob/e3194036feb05334f0b4256bfd9c834efda5043d/blockly.css" type="text/css">
+    <style type="text/css">
+        @import "https://pxt.azureedge.net/blob/8bae6a6777a8ce19d233b36b0c48d62ac9520249/custom.css";
+        @import "https://pxt.azureedge.net/blob/e3782175d7e3e4585ef9dd629c504d41b0a7b451/icons.css";
+    </style>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css">
+    <!-- Processing.js  -->
+    <script language="javascript" type="text/javascript" src="processing.js"></script>
+
+    <script>if (window.module) module = window.module;</script>
+
+
+    <script type="text/javascript">
+    
+
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
+
+const adapter = new FileSync('db.json')
+const db = low(adapter)
+
+// Set some defaults (required if your JSON file is empty)
+db.defaults({ posts: [], user: {}, count: 0 })
+  .write()
+
+// Add a post
+db.get('posts')
+  .push({ id: 1, title: 'lowdb is awesome'})
+  .write()
+    </script>
+    <link rel="stylesheet" href="main.css"> 
+  </head>
+  <body>
+    <div class="window">
+      <header class="toolbar toolbar-header">
+        <div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Workspace</a></li>
+    <li><a href="#tabs-2">Blocks</a></li>
+    <li><a href="#tabs-3">Toolbox</a></li>
+  </ul>
+  <div id="tabs-1">
+    
+  </div>
+  <div id="tabs-2">
+    
+  </div>
+  <div id="tabs-3">
+    
+  </header>
+
+      <div class="window-content">
+        <div id="blocklyArea" style="width: 60%;"></div>
+        <div id="left" style="width: 40%;">
+        	<div id="scketch_preview" style="height: 50%;">
+    				<canvas style="height: 100%" data-processing-sources="" id="pjs" > </canvas>
+    				<script type="application/processing" data-processing-target="pjs" id="scriptProcessing"></script>
+  			  </div>
+    			<div id="variables" style="height: 49%;">
+    				
+    			</div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+      <xml id="toolbox" style="display: none">
+        <category name="Controls" colour="220">
+          <block type="background_color"></block>
+          <block type="_2d_line"></block>
+          <block type="draw_2_points"></block>
+          <block type="get"></block>
+          <block type="set"></block>
+          <block type="cast"></block>          
+          <block type="at_draw_line_2d"></block> 
+          <block type="at_draw_rect_2d"></block>          
+          <block type="at_draw_triangle_2d"></block> 
+          <block type="at_draw_point_2d"></block> 
+          <block type="at_draw_ellipse_2d"></block> 
+          <block type="at_draw_quad_2d"></block> 
+          <block type="at_draw_cube_3d"></block> 
+          <block type="at_draw_sphere_3d"></block> 
+        </category>
+        <category name="Logic" colour="210">
+          <block type="controls_if"></block>
+          <block type="logic_compare"></block>
+          <block type="logic_operation"></block>
+          <block type="logic_negate"></block>
+          <block type="logic_boolean"></block>
+          <block type="logic_null"></block>
+          <block type="logic_ternary"></block>
+        </category>
+        <category name="Loops" colour="120">
+          <block type="controls_repeat_ext">
+            <value name="TIMES">
+              <shadow type="math_number">
+                <field name="NUM">10</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="controls_whileUntil"></block>
+          <block type="controls_for">
+            <value name="FROM">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="TO">
+              <shadow type="math_number">
+                <field name="NUM">10</field>
+              </shadow>
+            </value>
+            <value name="BY">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="controls_forEach"></block>
+          <block type="controls_flow_statements"></block>
+        </category>
+        <category name="Math" colour="230">
+          <block type="math_number"></block>
+          <block type="math_arithmetic">
+            <value name="A">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="B">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_single">
+            <value name="NUM">
+              <shadow type="math_number">
+                <field name="NUM">9</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_trig">
+            <value name="NUM">
+              <shadow type="math_number">
+                <field name="NUM">45</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_constant"></block>
+          <block type="math_number_property">
+            <value name="NUMBER_TO_CHECK">
+              <shadow type="math_number">
+                <field name="NUM">0</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_round">
+            <value name="NUM">
+              <shadow type="math_number">
+                <field name="NUM">3.1</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_on_list"></block>
+          <block type="math_modulo">
+            <value name="DIVIDEND">
+              <shadow type="math_number">
+                <field name="NUM">64</field>
+              </shadow>
+            </value>
+            <value name="DIVISOR">
+              <shadow type="math_number">
+                <field name="NUM">10</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_constrain">
+            <value name="VALUE">
+              <shadow type="math_number">
+                <field name="NUM">50</field>
+              </shadow>
+            </value>
+            <value name="LOW">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="HIGH">
+              <shadow type="math_number">
+                <field name="NUM">100</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_random_int">
+            <value name="FROM">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="TO">
+              <shadow type="math_number">
+                <field name="NUM">100</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_random_float"></block>
+        </category>
+        <category name="Text" colour="160">
+          <block type="text"></block>
+          <block type="text_join"></block>
+          <block type="text_append">
+            <value name="TEXT">
+              <shadow type="text"></shadow>
+            </value>
+          </block>
+          <block type="text_length">
+            <value name="VALUE">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_isEmpty">
+            <value name="VALUE">
+              <shadow type="text">
+                <field name="TEXT"></field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_indexOf">
+            <value name="VALUE">
+              <block type="variables_get">
+                <field name="VAR">text</field>
+              </block>
+            </value>
+            <value name="FIND">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_charAt">
+            <value name="VALUE">
+              <block type="variables_get">
+                <field name="VAR">text</field>
+              </block>
+            </value>
+          </block>
+          <block type="text_getSubstring">
+            <value name="STRING">
+              <block type="variables_get">
+                <field name="VAR">text</field>
+              </block>
+            </value>
+          </block>
+          <block type="text_changeCase">
+            <value name="TEXT">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_trim">
+            <value name="TEXT">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_print">
+            <value name="TEXT">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="text_prompt_ext">
+            <value name="TEXT">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+            </value>
+          </block>
+        </category>
+        <category name="Lists" colour="260">
+          <block type="lists_create_with">
+            <mutation items="0"></mutation>
+          </block>
+          <block type="lists_create_with"></block>
+          <block type="lists_repeat">
+            <value name="NUM">
+              <shadow type="math_number">
+                <field name="NUM">5</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="lists_length"></block>
+          <block type="lists_isEmpty"></block>
+          <block type="lists_indexOf">
+            <value name="VALUE">
+              <block type="variables_get">
+                <field name="VAR">list</field>
+              </block>
+            </value>
+          </block>
+          <block type="lists_getIndex">
+            <value name="VALUE">
+              <block type="variables_get">
+                <field name="VAR">list</field>
+              </block>
+            </value>
+          </block>
+          <block type="lists_setIndex">
+            <value name="LIST">
+              <block type="variables_get">
+                <field name="VAR">list</field>
+              </block>
+            </value>
+          </block>
+          <block type="lists_getSublist">
+            <value name="LIST">
+              <block type="variables_get">
+                <field name="VAR">list</field>
+              </block>
+            </value>
+          </block>
+          <block type="lists_split">
+            <value name="DELIM">
+              <shadow type="text">
+                <field name="TEXT">,</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="lists_sort"></block>
+        </category>
+        <category name="Colour" colour="20">
+          <block type="colour_picker"></block>
+          <block type="colour_random"></block>
+          <block type="colour_rgb">
+            <value name="RED">
+              <shadow type="math_number">
+                <field name="NUM">100</field>
+              </shadow>
+            </value>
+            <value name="GREEN">
+              <shadow type="math_number">
+                <field name="NUM">50</field>
+              </shadow>
+            </value>
+            <value name="BLUE">
+              <shadow type="math_number">
+                <field name="NUM">0</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="colour_blend">
+            <value name="COLOUR1">
+              <shadow type="colour_picker">
+                <field name="COLOUR">#ff0000</field>
+              </shadow>
+            </value>
+            <value name="COLOUR2">
+              <shadow type="colour_picker">
+                <field name="COLOUR">#3333ff</field>
+              </shadow>
+            </value>
+            <value name="RATIO">
+              <shadow type="math_number">
+                <field name="NUM">0.5</field>
+              </shadow>
+            </value>
+          </block>
+        </category>
+        <sep></sep>
+        <category name="Variables" colour="330" custom="VARIABLE"></category>
+        <category name="Funciones" colour="290" custom="PROCEDURE"></category>
+        <category name="Recursos" colour="310" custom="RESOURCES"></category>
+        <sep></sep>
+        <category name="Block Library" colour="260" id="blockLibCategory"></category>
+      </xml>
+
+
+
+
+
+
+
+
+
+
+      <!-- TODO Meter el toolbox en un archivo aparte e importarlo 
+      <xml id="toolbox" style="display: none">
+        <category name="Control">
+          <block type="controls_if"></block>
+          <block type="get"></block>
+          <block type="set"></block>
+          <block type="cast"></block>
+          <block type="background_color"></block>
+          <block type="_2d_line"></block>
+          <block type="draw_2_points"></block>
+      </category>
+      <category name="Contrfefeol">
+          <block type="controls_repeat_ext"></block>
+          <block type="logic_compare"></block>
+          <block type="math_number"></block>
+          <block type="math_arithmetic"></block>
+          <block type="math_trig"></block>
+      </category>
+        <category name="Events">
+          <block type="trig_event"></block>
+          <block type="trig_event_ext"></block>
+          <block type="when_event_happen"></block>
+          <block type="when_recurrent_event_happen"></block>
+      </category>
+    </category>
+        <category name="Events">
+          <block type="text"></block>
+          <block type="text_print"></block>
+      </category>
+      <category name="Variables" colour="#A65C81" custom="VARIABLE"></category>
+      </xml> -->
+      <div id="blocklyDiv" style="position: absolute"></div>
+      <footer class="toolbar toolbar-footer">
+        <div class="toolbar-actions">
+          <button class="btn btn-default" onclick="alertaso()">
+            Cancel
+          </button>
+
+          <button class="btn btn-primary pull-right" onclick="load_js_procesing()">
+            Save
+          </button>
+        </div>
+      </footer>
+    </div>
+  </body>
+  <script>
+
+  /**
+   * Construct the blocks required by the resources category.
+   * @param {!Blockly.Workspace} workspace The workspace this flyout is for.
+   * @return {!Array.<!Element>} Array of XML block elements.
+   */
+  Blockly.coloursFlyoutCallback = function(workspace) {
+    // Returns an array of hex colours, e.g. ['#4286f4', '#ef0447']
+    var colourList = ['#4286f4', '#ef0447'];
+    var xmlList = [];
+    if (Blockly.Blocks['colour_picker']) {
+      for (var i = 0; i < colourList.length; i++) {
+        var blockText = '<xml>' +
+            '<block type="colour_picker">' +
+            '<field name="COLOUR">' + colourList[i] + '</field>' +
+            '</block>' +
+            '</xml>';
+        var block = Blockly.Xml.textToDom(blockText).firstChild;
+        xmlList.push(block);
+      }
+    }
+    return xmlList;
+  };
+
+
+  var blocklyArea = document.getElementById('blocklyArea');
+  var blocklyDiv = document.getElementById('blocklyDiv');
+  var workspacePlayground = Blockly.inject(blocklyDiv,
+      {toolbox: document.getElementById('toolbox')});
+  var need_to_restore_snapshot="false";  // indica si hay que restaurar la imagen del ultimo frame 
+  var onresize = function(e) {
+    console.log('resize');
+    //setTimeout(function() {   // Hack to make it work on resize and on maximize/restore from maximization ( https://stackoverflow.com/questions/7013326/firefox-maximize-doesnt-trigger-resize-event#12783836 )
+      // Compute the absolute coordinates and dimensions of blocklyArea.
+      console.log('resiz2');
+      var element = blocklyArea;
+      var x = 0;
+      var y = 0;
+      do {
+        x += element.offsetLeft;
+        y += element.offsetTop;
+        element = element.offsetParent;
+      } while (element);
+      // Position blocklyDiv over blocklyArea.
+      blocklyDiv.style.left = x + 'px';
+      blocklyDiv.style.top = y + 'px';
+      blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+      blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+    
+  };
+
+  workspacePlayground.registerToolboxCategoryCallback(
+  'RESOURCES', Blockly.coloursFlyoutCallback);
+  //Blockly.Variables.createVariable(workspacePlayground, 'nulgrfgl', 'panda');
+
+  window.addEventListener('resize', onresize, false);
+  setTimeout(function() {window.dispatchEvent(new Event('resize'));}, 300);
+  Blockly.svgResize(workspacePlayground);
+  function alertaso(){
+  	alert(Blockly.JavaScript.workspaceToCode(workspacePlayground));
+  }
+
+function load_js_procesing()
+		   {
+          var parent= document.getElementById('scketch_preview');
+          //Capturamos la imagen actual del canvas para cargarla en el setup
+          var canvas_pjs = document.getElementById('pjs');
+          if(canvas_pjs != null){
+            var canvas_size_w = document.getElementById('pjs').width;
+            var canvas_size_h = document.getElementById('pjs').height;
+            var uri_data_ultimo_frame = canvas_pjs.toDataURL();
+          }else{
+            var canvax_aux= document.createElement('canvas');
+            var canvas_size_w = canvax_aux.width;
+            var canvas_size_h = canvax_aux.height;         
+            var uri_data_ultimo_frame = canvax_aux.toDataURL();   
+            canvax.setAttribute("id", "pjs");
+            parent.appendChild(canvax);
+          }
+
+		      
+		      parent.removeChild( document.getElementById('scriptProcessing') );
+		      parent.removeChild( document.getElementById('pjs') );
+		      var script= document.createElement('script');
+		      script.type= 'application/processing';
+		      script.id= "scriptProcessing";
+		      script.setAttribute("data-processing-target", "pjs");          
+
+		      var code_processing = "// Created with AstralTrip\n";
+          code_processing = code_processing + 'String uri_primer_frame="'+ uri_data_ultimo_frame +'";\n'
+		      code_processing = code_processing + "var mapVariables = new Map();\nPImage primer_frame;bool restored_screenshot=!"+need_to_restore_snapshot+";"
+
+          //code_processing = code_processing + "void make_screenshot(){save('last.png');}\n"
+		      code_processing = code_processing + "void setup(){primer_frame=loadImage(uri_primer_frame);size("+canvas_size_w+", "+canvas_size_h+");  " + "}\n"	// TODO Declarar variables globales	
+		      code_processing = code_processing + "void draw() { if(!restored_screenshot){image(primer_frame,0,0);restored_screenshot=true;}" + Blockly.JavaScript.workspaceToCode(workspacePlayground); + "";	 
+		      code_processing = code_processing + "}\n"
+		      script.innerHTML= code_processing ;
+		  
+		      var canvax= document.createElement('canvas');
+		      canvax.setAttribute("id", "pjs");
+		      //canvax.setAttribute("data-processing-sources", "prueba2.pde");
+		      parent.appendChild(canvax);
+		      parent.appendChild(script);
+          console.log("apendeado");
+		      //Processing.loadSketchFromSources(document.getElementById("pjs"),["prueba2.pde"]);
+		      
+		      Processing.reload();
+          need_to_restore_snapshot="true";
+		   }
+
+</script>
+
+
+</html>

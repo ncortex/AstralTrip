@@ -1,0 +1,531 @@
+
+goog.provide('Blockly.Blocks.draw');  // Deprecated
+goog.provide('Blockly.Constants.draw');
+
+goog.require('Blockly.Blocks');
+goog.require('Blockly');
+
+Blockly.defineBlocksWithJsonArray([{
+  "type": "at_draw_line_2d",
+  "message0": "Draw line 2D  x1: %1 y1: %2 x2: %3 y2: %4",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x1",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y1",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "x2",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y2",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 60,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "at_draw_arc_2d",
+  "message0": "Draw arc 2D  x: %1 y: %2 w: %3 h: %4 start: %5 %6 end: %7",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "w",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "h",
+      "check": "Number"
+    },
+    {
+      "type": "field_angle",
+      "name": "start",
+      "angle": 0
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "field_angle",
+      "name": "end",
+      "angle": 90
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 60,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "at_draw_rect_2d",
+  "message0": "Draw rectangle 2D   x1: %1 y1: %2 x2: %3 y2: %4 mode: %5",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x1",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y1",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "x2",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y2",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "mode",
+      "options": [
+        [
+          "Center",
+          "center"
+        ],
+        [
+          "Corner",
+          "corner"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 60,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "at_draw_round_rect_2d",
+  "message0": "Draw round-corner rectangle 2D   x1: %1 mode: %2 \t          |  y1: %3 x2: %4 y2: %5 Top-left radius %6 Top-right radius %7 Bottom-left radius %8 Botom-right radius %9",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x1",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "mode",
+      "options": [
+        [
+          "Center",
+          "center"
+        ],
+        [
+          "Corner",
+          "corner"
+        ]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "y1",
+      "check": "Number",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "x2",
+      "check": "Number",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "y2",
+      "check": "Number",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "tlradius",
+      "check": "Number",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "trradius",
+      "check": "Number",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "blradius",
+      "check": "Number",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "brradius",
+      "check": "Number",
+      "align": "RIGHT"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 60,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "at_draw_ellipse_2d",
+  "message0": "Draw ellipse 2D  x: %1 y: %2 w: %3 h: %4 mode: %5",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "w",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "h",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "mode",
+      "options": [
+        [
+          "Center",
+          "center"
+        ],
+        [
+          "Corner",
+          "corner"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 60,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "at_draw_point_2d",
+  "message0": "Draw point 2D  x: %1 y: %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 60,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "at_draw_quad_2d",
+  "message0": "Draw quad 2D   x1: %1 y1: %2 x2: %3 y2: %4 x3: %5 y3: %6 x4: %7 y4: %8",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x1",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y1",
+      "check": "Number",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "x2",
+      "check": "Number",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "y2",
+      "check": "Number",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "x3",
+      "check": "Number",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "y3",
+      "check": "Number",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "x4",
+      "check": "Number",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "y4",
+      "check": "Number",
+      "align": "RIGHT"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 60,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "at_draw_triangle_2d",
+  "message0": "Draw triangle 2D   x1: %1 y1: %2 x2: %3 y2: %4 x3: %5 y3: %6",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x1",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y1",
+      "check": "Number",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "x2",
+      "check": "Number",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "y2",
+      "check": "Number",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "x3",
+      "check": "Number",
+      "align": "RIGHT"
+    },
+    {
+      "type": "input_value",
+      "name": "y3",
+      "check": "Number",
+      "align": "RIGHT"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 60,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "at_transform_translate",
+  "message0": "Translate  x: %1 y: %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "x",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "y",
+      "check": "Number",
+      "align": "RIGHT"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 90,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "at_transform_rotate",
+  "message0": "Rotate %1 degrees",
+  "args0": [
+    {
+      "type": "field_angle",
+      "name": "amount",
+      "angle": 90
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 90,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "at_transform_scale",
+  "message0": "Scale by:  %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "amount",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 90,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "at_smooth",
+  "message0": "Activate Smooth",
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 300,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "at_smooth_no",
+  "message0": "Deactivate Smooth",
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 300,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "at_draw_box_3d",
+  "message0": "Draw box 3D  w: %1 h: %2 d: %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "w",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "h",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "d",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 50,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "at_draw_sphere_3d",
+  "message0": "Draw sphere 3D  Radius: %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "w",
+      "check": "Number"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 50,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "at_draw",
+  "message0": "draw %1 %2",
+  "args0": [
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "codigo"
+    }
+  ],
+  "inputsInline": false,
+  "colour": 180,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "at_setup",
+  "message0": "setup %1 %2",
+  "args0": [
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "codigo"
+    }
+  ],
+  "inputsInline": false,
+  "colour": 180,
+  "tooltip": "",
+  "helpUrl": ""
+}]
+);  // END JSON EXTRACT (Do not delete this comment.)

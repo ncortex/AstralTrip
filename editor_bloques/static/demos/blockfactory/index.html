@@ -1,0 +1,615 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="target-densitydpi=device-dpi, height=660, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>AstralTrip</title>
+<!--<script src="vendor/jquery-ui-1.12.1/external/jquery/jquery.js"></script>  -->
+<script>window.$ = window.jQuery = require('./vendor/jquery-3.3.1/jquery-3.3.1.min.js');</script>
+  <script src="vendor/stash/stash.js"></script>
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../msg/js/en.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../../../closure-library/closure/goog/base.js"></script>
+  <script src="analytics.js"></script>
+  <script src="block_definition_extractor.js"></script>
+  <script src="factory_utils.js"></script>
+  <script src="workspacefactory/wfactory_model.js"></script>
+  <script src="standard_categories.js"></script>
+  <script src="workspacefactory/wfactory_controller.js"></script>
+  <script src="workspacefactory/wfactory_view.js"></script>
+  <script src="workspacefactory/wfactory_generator.js"></script>
+  <script src="workspacefactory/wfactory_init.js"></script>
+  <script src="block_option.js"></script>
+  <script src="factory.js"></script>
+  <script src="block_library_view.js"></script>
+  <script src="block_library_storage.js"></script>
+  <script src="block_library_controller.js"></script>
+  <script src="block_exporter_tools.js"></script>
+  <script src="block_exporter_view.js"></script>
+  <script src="block_exporter_controller.js"></script>
+  <script src="blocks.js"></script>
+  <script src="at_blocks_draw.js"></script>
+  <script src="predefinedVars.js"></script>
+  <script src="app_controller.js"></script>
+  <script src="https://blockly-demo.appspot.com/storage.js"></script>
+  <link rel="stylesheet" href="factory.css">
+    <link rel="stylesheet" href="main.css">
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  <script src="vendor/jstreebind/jsTreeBind.js"></script>
+  
+  <script src="astraltrip_main.js"></script>
+  <script src="astraltrip_toolbox_controller.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="vendor/jstree/themes/default/style.min.css" />
+  <script src="vendor/jstree/jstree.js"></script>
+  <script src="vendor/bootbox/bootbox.min.js"></script>
+  <script>
+    appendXMLtoolboxes();
+    var blocklyFactory;
+    var init = function() {
+      BlocklyDevTools.Analytics.init();
+
+      blocklyFactory = new AppController();
+      blocklyFactory.init();
+      window.addEventListener('beforeunload', blocklyFactory.confirmLeavePage);
+    };
+    window.addEventListener('load', init);
+
+  </script>
+    
+</head>
+<body>
+
+
+
+
+
+
+
+
+<form id="TheForm" method="post" action="test.asp" target="TheWindow" style="display: none" >
+  <input type="hidden" name="codigo" value="" />
+</form>
+
+
+<xml id="toolbox" class="toolbox" style="display: none">
+        <category name="categoriaderelleno" colour="260" id="blockLibCategory"></category>
+</xml> 
+
+
+
+
+
+
+  <div id="tabContainer">
+    <div id="blocklibraryExporter_tab" class="tab taboff">Workspace</div>    
+    <div id="blockFactory_tab" class="tab tabon">Block Factory</div>
+    <div  id="workspaceFactory_tab" class="tab taboff">Toolbox Editor</div>
+    <div style="display: none;" id="projects_tab" class="tab taboff">Export</div>
+  </div>
+
+  <!-- workspace tab -->
+  <table id="blockLibraryExporter" style="overflow: hidden;">
+    <tr width="100%" height="56px">
+      <td width="50%">
+      	<div style="overflow: hidden;">
+		    <button id="showcodeButton" onclick="alertaso()">Showcode</button>
+		    <button id="runButton" onclick="run_project()">Run</button>
+		    <button id="saveprojectButton" onclick="save_project()">Save project</button>
+		    <button id="saveprojectButton" onclick="save_project(true)">Save as...</button>
+		    <button id="openprojectButton" onclick="open_project()">Open project</button>
+		    <button id="openprojectButton" onclick="new_project(true)">New project</button>
+		    <input type="checkbox" id="checkboxLivecoding" onchange="activar_livecoding(document.getElementById('checkboxLivecoding').checked)"/><label>Live coding</label>
+        </div>
+      </td>
+    </tr>
+    <tr height="80%">
+      <td id="blocklyWorkspaceContainer">
+        <div id="blocklyArea" style="width: 100%; "></div>
+        <div id="blocklyDiv" style="position: absolute"></div>
+      </td>
+    </tr>
+  </table>
+    <!-- <iframe id="f1" src="../../../../workspace_bloques.html" style="width: 100%;"></iframe>
+      <script type="text/javascript">
+      var altura=Math.max(      // TODO Meter esto en una funcion aparte
+          document.documentElement["clientWidth"],
+          document.body["scrollWidth"],
+          document.documentElement["scrollWidth"],
+          document.body["offsetWidth"],
+          document.documentElement["offsetWidth"]
+      );
+     document.getElementById("f1").style.height = altura+"px";</script>-->
+
+  </body>
+  <script type="text/javascript">
+  /**
+   * Construct the blocks required by the resources category.
+   * @param {!Blockly.Workspace} workspace The workspace this flyout is for.
+   * @return {!Array.<!Element>} Array of XML block elements.
+   */
+  Blockly.coloursFlyoutCallback = function(workspace) {
+    // Returns an array of hex colours, e.g. ['#4286f4', '#ef0447']
+    var colourList = ['#4286f4', '#ef0447'];
+    var xmlList = [];
+    if (Blockly.Blocks['colour_picker']) {
+      for (var i = 0; i < colourList.length; i++) {
+        var blockText = '<xml>' +
+            '<block type="colour_picker">' +
+            '<field name="COLOUR">' + colourList[i] + '</field>' +
+            '</block>' +
+            '</xml>';
+        var block = Blockly.Xml.textToDom(blockText).firstChild;
+        xmlList.push(block);
+      }
+    }
+    return xmlList;
+  };
+
+  /**
+   * Construct the blocks required by the propios category.
+   * @param {!Blockly.Workspace} workspace The workspace this flyout is for.
+   * @return {!Array.<!Element>} Array of XML block elements.
+   */
+  Blockly.propiosFlyoutCallback = function(workspace) {
+    var propiosList = db.get('blocks').value();
+    var xmlList = [];
+    propiosList.forEach(function(element) {
+        var blockText = '<xml>' +
+            '<block type="' + element['id'] + '">' + '</block>' +
+            '</xml>';
+          console.log(blockText);
+        var block = Blockly.Xml.textToDom(blockText).firstChild;
+        xmlList.push(block);
+      }
+    );
+    return xmlList;
+  };
+
+  var blocklyArea = document.getElementById('blocklyArea');
+  var blocklyDiv = document.getElementById('blocklyDiv');
+  var workspacePlayground = Blockly.inject(blocklyDiv,
+      {toolbox: document.getElementById('toolbox')});
+      	//workspacePlayground.createVariable('frameCount', "Number", null);
+  	 
+  var need_to_restore_snapshot="false";  // indica si hay que restaurar la imagen del ultimo frame 
+  var onresize = function(e) {
+    //setTimeout(function() {   // Hack to make it work on resize and on maximize/restore from maximization ( https://stackoverflow.com/questions/7013326/firefox-maximize-doesnt-trigger-resize-event#12783836 )
+      // Compute the absolute coordinates and dimensions of blocklyArea.
+      var element = blocklyArea;
+      var x = 0;
+      var y = 0;
+      do {
+        x += element.offsetLeft;
+        y += element.offsetTop;
+        element = element.offsetParent;
+      } while (element);
+      // Position blocklyDiv over blocklyArea.
+      blocklyDiv.style.left = x + 'px';
+      blocklyDiv.style.top = y + 'px';
+      blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+      blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+    
+  };
+
+  workspacePlayground.registerToolboxCategoryCallback(
+  'RESOURCES', Blockly.coloursFlyoutCallback);
+  workspacePlayground.registerToolboxCategoryCallback(
+  'PROPIOS', Blockly.propiosFlyoutCallback);
+  
+workspacePlayground.registerButtonCallback('loadSoundButton', load_sound);
+
+  window.addEventListener('resize', onresize, false);
+  //setTimeout(function() {window.dispatchEvent(new Event('resize'));}, 300);
+  Blockly.svgResize(workspacePlayground);
+  function alertaso(){
+    alert(Blockly.JavaScript.workspaceToCode(workspacePlayground).replace("function setup\(\)\{[^(openTuneDesk)]openTuneDesk\(\)\;\}\;",''));
+  }
+  function ajustar_ancho(){
+          var anchura=Math.max(      // TODO Meter esto en una funcion aparte
+              document.documentElement["clientWidth"],
+              document.body["scrollWidth"],
+              document.documentElement["scrollWidth"],
+              document.body["offsetWidth"],
+              document.documentElement["offsetWidth"]
+         );
+          var altura=Math.max(      // TODO Meter esto en una funcion aparte
+              document.documentElement["clientHeight"],
+              document.body["scrollHeight"],
+              document.documentElement["scrollHeight"],
+              document.body["offsetHeight"],
+              document.documentElement["offsetHeight"]
+         );
+          altura=altura-86;
+          blocklyDiv.style.height = altura+ 'px';
+          blocklyArea.style.height = altura+ 'px';
+          blocklyDiv.style.width = anchura+ 'px';
+          blocklyArea.style.width = anchura+ 'px';
+
+  }
+//  ajustar_ancho();
+setTimeout(ajustar_ancho, 1000);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <div id="oculto" style="display: none;" > <br> <p>
+      First, select blocks from your block library by clicking on them. Then, use the Export Settings form to download starter code for selected blocks.
+    </p>
+    <div id="exportSelector">
+     
+        <br>
+        <h3>Block Selector</h3>
+        <div class="dropdown">
+          <button id="button_setBlocks">Select</button>
+          <div id="dropdownDiv_setBlocks" class="dropdown-content">
+            <a id="dropdown_addAllFromLib" title="Select all block library blocks.">All Stored in Block Library</a>
+            <a id="dropdown_addAllUsed" title="Select all block library blocks used in workspace factory.">All Used in Workspace Factory</a>
+          </div>
+          <button id="clearSelectedButton" title="Clear selected blocks.">Clear Selected</button>
+        </div>
+
+        <div id="blockSelector"></div>
+      </div>
+
+      <!-- Users may customize export settings through this form  -->
+      <div id="exportSettings">
+        <br>
+        <h3> Export Settings </h3>
+        <form id="exportSettingsForm">
+
+          <div id="selectedBlocksTextContainer">
+            <p>Currently Selected:</p>
+            <p id="selectedBlocksText"></p>
+          </div>
+          <label><input type="checkbox" id="blockDefCheck">Block Definition(s)</label><br>
+          <div id="blockDefSettings" class="subsettings">
+            <label>Format:
+            <select id="exportFormat">
+              <option value="JSON">JSON</option>
+              <option value="JavaScript">JavaScript</option>
+            </select></label>
+            <br>
+            <label>File Name:<br>
+            <input type="text" id="blockDef_filename"></label>
+          </div>
+          <br>
+
+          <label><input type="checkbox" id="genStubCheck">Generator Stub(s)</label><br>
+          <div id="genStubSettings" class="subsettings">
+            <label>Language:
+            <select id="exportLanguage">
+              <option value="JavaScript">JavaScript</option>
+              <option value="Python">Python</option>
+              <option value="PHP">PHP</option>
+              <option value="Lua">Lua</option>
+              <option value="Dart">Dart</option>
+            </select></label>
+            <br>
+            <label>File Name:<br>
+            <input type="text" id="generatorStub_filename"></label><br>
+          </div>
+          <br>
+        </form>
+        <button id="exporterSubmitButton" title="Download block starter code as specified in export settings.">Export</button>
+      </div>
+      <div id="exportPreview">
+        <br>
+        <h3>Export Preview</h3>
+        <div id="blockDefs" class="exportPreviewTextArea">
+          <p id="blockDefs_label">Block Definitions:</p>
+          <pre id="blockDefs_textArea"></pre>
+        </div>
+        <div id="genStubs" class="exportPreviewTextArea">
+          <p id="genStubs_label">Generator Stubs:</p>
+          <pre id="genStubs_textArea"></pre>
+        </div>
+      </div>
+    </div><!-- Oculto -->
+  </div>
+  <!-- Workspace Factory tab -->
+
+  <div id="workspaceFactoryContent">
+    <div id="factoryHeader" style="display: none;">
+      <p>
+        <div class="dropdown">
+        <button id="button_importBlocks">Import Custom Blocks</button>
+          <div id="dropdownDiv_importBlocks" class="dropdown-content">
+            <input type="file" id="input_importBlocksJson" accept=".js, .json, .txt" class="inputfile"</input>
+            <label for="input_importBlocksJson">From JSON</label>
+            <input type="file" id="input_importBlocksJs" accept=".js, .txt" class="inputfile"</input>
+            <label for="input_importBlocksJs">From Javascript</label>
+          </div>
+        </div>
+
+        <div class="dropdown">
+        <button id="button_load">Load to Edit</button>
+          <div id="dropdownDiv_load" class="dropdown-content">
+            <input type="file" id="input_loadToolbox" accept=".xml" class="inputfile"></input>
+            <label for="input_loadToolbox">Toolbox</label>
+            <input type="file" id="input_loadPreload" accept=".xml" class="inputfile"</input>
+            <label for="input_loadPreload">Workspace Blocks</label>
+          </div>
+        </div>
+
+        <div class="dropdown">
+        <button id="button_export">Export</button>
+          <div id="dropdownDiv_export" class="dropdown-content">
+            <a id="dropdown_exportOptions">Starter Code</a>
+            <a id="dropdown_exportToolbox">Toolbox</a>
+            <a id="dropdown_exportPreload">Workspace Blocks</a>
+            <a id="dropdown_exportAll">All</a>
+          </div>
+        </div>
+
+        <button id="button_clear">Clear</button>
+      </p>
+    </div>
+
+    <section id="previewDiv" style="float:right;">
+      <div id="previewBorder">
+        <div id="previewHelp">
+          <h3>Preview</h3>
+          <p>This is what your custom workspace will look like.</p>
+        </div>
+        <div id="preview_blocks" class="content"></div>
+      </div>
+    </section>
+
+    <section id="createDiv">
+      <div id="createHeader">
+        <h3>Edit</h3>
+        <p id="editHelpText">Drag blocks into the workspace to configure the toolbox in your custom workspace.</p>
+      </div>
+      <table id="workspaceTabs" style="width:auto; height:auto">
+        <tr>
+          <td id="tab_toolbox" class="tabon">Toolbox</td>
+          <td id="tab_preload" class="taboff">Workspace</td>
+        </tr>
+      </table>
+      <section id="toolbox_section">
+        <div id="toolbox_blocks"></div>
+      </section>
+
+      <aside id="toolbox_div" style="display:none;">
+        <p id="categoryHeader">You currently have no categories.</p>
+        <table id="categoryTable" style="width:auto; height:auto">
+        </table>
+        <p>&nbsp;</p>
+
+        <div class="dropdown">
+          <button id="button_add" class="large">+</button>
+          <div id="dropdownDiv_add" class="dropdown-content">
+            <a id="dropdown_newCategory">New Category</a>
+            <a id="dropdown_loadCategory">Standard Category</a>
+            <a id="dropdown_separator">Separator</a>
+            <a id="dropdown_loadStandardToolbox">Standard Toolbox</a>
+          </div>
+        </div>
+
+        <button id="button_remove" class="large">-</button>
+
+        <button id="button_up" class="large">&#8593;</button>
+        <button id="button_down" class="large">&#8595;</button>
+
+        <br>
+        <div class="dropdown">
+          <button id="button_editCategory">Edit Category</button>
+          <div id="dropdownDiv_editCategory" class="dropdown-content">
+            <a id='dropdown_name'>Name</a>
+            <a id='dropdown_color'>Colour</a>
+          </div>
+        </div>
+
+      </aside>
+
+      <button id="button_addShadow" style="display: none">Make Shadow</button>
+      <button id="button_removeShadow" style="display: none">Remove Shadow</button>
+
+      <aside id="preload_div" style="display:none">
+        <div id="preloadHelp">
+          <p>Configure the options for your Blockly inject call.</p>
+          <button id="button_optionsHelp">Help</button>
+          <button class="small" id="button_standardOptions">Reset to Default</button>
+        </div>
+        <div id="workspace_options">
+          <label><input type="checkbox" id="option_readOnly_checkbox">Read Only</label><br>
+          <label><input type="checkbox" id="option_grid_checkbox">Use Grid</label><br>
+          <div id="grid_options" style="display: none">
+            <label>Spacing <input type="number" id="gridOption_spacing_number" style="width: 3em"></label><br>
+            <label>Length <input type="number" id="gridOption_length_number" style="width: 3em"></label><br>
+            <label>Colour <input type="text" id="gridOption_colour_text" style="width: 8em"></label><br>
+            <div id="readonly1">
+              <label><input type="checkbox" id="gridOption_snap_checkbox">Snap</label><br>
+            </div>
+          </div>
+          <label>Path to Blockly Media <input type="text" id="option_media_text" style="width: 90%"></label><br>
+          <label><input type="checkbox" id="option_rtl_checkbox">Layout with RTL</label><br>
+          <label><input type="checkbox" id="option_scrollbars_checkbox">Scrollbars</label><br>
+          <label><input type="checkbox" id="option_zoom_checkbox">Zoom</label><br>
+          <div id="zoom_options" style="display: none">
+            <label><input type="checkbox" id="zoomOption_controls_checkbox">Zoom Controls</label><br>
+            <label><input type="checkbox" id="zoomOption_wheel_checkbox">Zoom Wheel</label><br>
+            <label>Start Scale <input type="number" id="zoomOption_startScale_number" style="width: 4em"></label><br>
+            <label>Max Scale <input type="number" id="zoomOption_maxScale_number" style="width: 4em"></label><br>
+            <label>Min Scale <input type="number" id="zoomOption_minScale_number" style="width: 4em"></label><br>
+            <label>Scale Speed <input type="number" id="zoomOption_scaleSpeed_number" style="width: 4em"></label><br>
+          </div>
+          <label><input type="checkbox" id="option_css_checkbox">Use Blockly CSS</label><br>
+          <div id="readonly2">
+            <label><input type="checkbox" id="option_collapse_checkbox">Collapsible Blocks</label><br>
+            <label><input type="checkbox" id="option_comments_checkbox">Comments for Blocks</label><br>
+            <label><input type="checkbox" id="option_disable_checkbox">Disabled Blocks</label><br>
+            <label><input type="checkbox" id="option_infiniteBlocks_checkbox">Infinite Blocks</label><br>
+            <div id="maxBlockNumber_option" style="display: none">
+              <label>Max Blocks <input type="number" id="option_maxBlocks_number" style="width: 5em"></label><br>
+            </div>
+            <label><input type="checkbox" id="option_horizontalLayout_checkbox">Horizontal Toolbox</label><br>
+            <label><input type="checkbox" id="option_toolboxPosition_checkbox">Toolbox End</label><br>
+            <label><input type="checkbox" id="option_oneBasedIndex_checkbox">One-based index</label><br>
+            <label><input type="checkbox" id="option_sounds_checkbox">Sounds<br>
+            <label><input type="checkbox" id="option_trashcan_checkbox">Trashcan</label><br>
+          </div>
+        </div>
+      </aside>
+
+    </section>
+
+
+  </div>
+
+  <!-- Blockly Factory Tab -->
+  <table id="blockFactoryContent">
+    <tr width="100%" height="10">
+      <td width="50%" height="5%">
+        <table>
+          <tr id="blockLibrary">
+            <td id="blockLibraryContainer">
+            <span>
+              <div class="dropdown">
+                <button id="button_blockLib">Block Library</button>
+                <div id="dropdownDiv_blockLib" class="dropdown-content">
+                  <a id="createNewBlockButton">Create New Block</a>
+                </div>
+              </div>
+              <select id="blockLibraryDropdown" style="display:none">
+              </select>
+            </span>
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td height="5%">
+        <table id="blockFactoryPreview" >
+          <tr>
+             <td id="blockLibraryControls">
+
+              <button id="saveToBlockLibraryButton" title="Save block to Block Library.">
+                Save "block_type"
+              </button>
+              <button id="removeBlockFromLibraryButton" title="Remove block from Block Library.">
+                Delete "block_type"
+              </button>
+            </td>
+            <td id="previewContainer" style="display: none;">
+              <h3>Preview:
+                <select id="direction">
+                  <option value="ltr">LTR</option>
+                  <option value="rtl">RTL</option>
+                </select>
+              </h3>
+            </td>
+            <td id="buttonContainer" style="display: none;">
+              <button id="linkButton" title="Save and link to blocks.">
+                <img src="link.png" height="21" width="21">
+              </button>
+              <button id="clearBlockLibraryButton" title="Clear Block Library.">
+                <span>Clear Library</span>
+              </button>
+              <label for="files" class="buttonStyle">
+                <span class=>Import Block Library</span>
+              </label>
+              <input id="files" type="file" name="files"
+                  accept="application/xml">
+              <button id="localSaveButton" title="Save block library XML to a local file.">
+                <span>Download Block Library</span>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr height="80%">
+      <td id="blocklyWorkspaceContainer">
+        <div id="blockly"></div>
+        <div id="blocklyMask"></div>
+      </td>
+      <td width="50%">
+        <table id="blocklyPreviewContainer">
+          <tr>
+            <td height="30%">
+              <div id="preview"></div>
+            </td>
+          </tr>
+          <tr style="display: none;">
+            <td height="5%">
+              <h3>Block Definition:
+                <!-- TODO(#1268): Separate concerns of format and editable.
+                  -               Add "Editable" state toggle button? -->
+                <select id="format">
+                  <option value="JSON">JSON</option>
+                  <option value="JavaScript">JavaScript</option>
+                  <option value="Manual-JSON">Manual JSON&hellip;</option>
+                  <script>
+                    // Manual JavaScript works but requires use of eval().
+                    // TODO(#1269): Replace eval() with JS-Interpreter before
+                    //              re-enabling "Manual JavaScript" mode.
+                    if (document.location.href.indexOf('file://') == 0) {
+                      document.write(
+                          '<option value="Manual-JS">Manual JavaScript&hellip;</option>');
+                    }
+                  </script>
+                </select>
+              </h3>
+            </td>
+          </tr>
+          <tr style="display: none;">
+            <td height="30%">
+              <pre id="languagePre"></pre>
+              <textarea id="languageTA"></textarea>
+            </td>
+          </tr>
+          <tr style="display: none;">
+            <td height="5%">
+              <h3>Generator stub:
+                <select id="language">
+                  <option value="JavaScript">JavaScript</option>
+                  <option value="Python">Python</option>
+                  <option value="PHP">PHP</option>
+                  <option value="Lua">Lua</option>
+                  <option value="Dart">Dart</option>
+                </select>
+              </h3>
+            </td>
+          </tr>
+          <tr>
+            <td height="70%">
+              <form>
+              <pre id="generatorPre" name="something" >This text gets removed</pre>
+            </form>
+              
+            </td>
+          </tr>
+        </table>
+      </td>
+      </tr>
+  </table>
+  <div id="modalShadow"></div>
+
+  
+  
+<div id="codigo_guardado" style="display:none;"></div>
+    <script type="text/javascript">
+		//$("#js-tree").jstree();
+		//evaluar_codigo_bloques_db();
+		new_project();
+    </script>
+</body>
+</html>

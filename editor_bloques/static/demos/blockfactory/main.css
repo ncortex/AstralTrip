@@ -1,0 +1,53 @@
+.blocklyPathDark{
+  display: none;
+}
+
+.blocklyPathLight{
+  display: none;
+}
+
+canvas#pjs{
+  height: 100%;width: 100%;
+}
+
+div.new_line_inside_block{
+  display:block;
+  }
+
+svg.blocklySvg{background:#63b8e8;background:linear-gradient(180deg,#fff,#ffe);box-shadow:inset 4px -4px 4px -4px rgba(0,0,0,.75)}
+
+html,
+body {
+  height: 100%;
+  margin: 0
+}
+
+
+.ui-tabs .ui-tabs-nav{
+  padding: 0em 1.3em;
+}
+
+.ui-widget-header{
+  border: 0px;
+}
+
+.box .row {
+  border: 1px solid grey;
+}
+
+.ui-tabs-panel {
+    padding: 0em 1em;
+}
+
+#createDiv {
+    height: 100%;
+    padding: 0%;
+    width: 50%;
+}
+
+#previewDiv {
+    border: 5px solid #eee;
+    height: 100%;
+    margin-right: 0%;
+    width: 48%;
+}

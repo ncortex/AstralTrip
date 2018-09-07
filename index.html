@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="blockly/blockly_compressed.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bars example</title>
+    <script>window.$ = window.jQuery = require('jquery');</script>
+<script src="vendor/jquery-ui-1.12.1/external/jquery/jquery.js"></script>
+<script src="vendor/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  
+    
+    <script src=" https://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script> 
+  
+  <script>
+  $( function() {
+    $( "#tabs" ).tabs();
+  } );
+  </script>
+
+
+    <script src="custom_dialog.js"></script> <!-- Electron no soporta prompt() asi que aqui hay una implementacion html de los dialogos -->
+ 
+    <link id="blocklycss" rel="stylesheet" data-rtl="https://pxt.azureedge.net/blob/d28329dfbbb74f842fc2122f503b09cb974accf3/rtlblockly.css" href="https://pxt.azureedge.net/blob/e3194036feb05334f0b4256bfd9c834efda5043d/blockly.css" type="text/css">
+    <style type="text/css">
+        @import "https://pxt.azureedge.net/blob/8bae6a6777a8ce19d233b36b0c48d62ac9520249/custom.css";
+        @import "https://pxt.azureedge.net/blob/e3782175d7e3e4585ef9dd629c504d41b0a7b451/icons.css";
+    </style>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css">
+   <!--  Processing.js  -->
+    <script language="javascript" type="text/javascript" src="processing.js"></script>
+
+
+    <script type="text/javascript">
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
+const adapter = new FileSync('db.json')
+const db = low(adapter)
+// Set some defaults (required if your JSON file is empty)
+db.defaults({ blocks: [], projects: [] })
+  .write()
+function guardar_bloque(nombre, codigo, xml_definicion){
+  // Add a post
+  db.get('posts')
+    .push({ id: $nombre, codigo: $codigo, xml: $xml_definicion})
+    .write()
+}
+
+    </script>
+    <link rel="stylesheet" href="main.css"> 
+  </head>
+  <body>
+    <div class="box">
+        <div id="tabs" class="row header" ">
+          <ul style="height: 5%;">
+            <li><a href="#tabs-1">Workspace</a></li>
+            <li><a href="#tabs-2">Blocks</a></li>
+            <li><div id="workspaceFactory_tab" class="tab">Toolbox</div></li>
+          </ul>
+
+        <div id="tabs-1" style="padding: 0em 1em;" class="row content">
+          <iframe id="f1" src="workspace_bloques.html" style="width: 100%;"></iframe>
+              <!--<div id="blocklyArea" style="width: 100%; height:700px ;"></div>
+              
+              </div>-->
+        </div>
+        <div id="tabs-2" style="padding: 0em 1em;" class="row content">
+              <iframe id="f2" src="editor_bloques/static/demos/blockfactory/index.html" style="width: 100%; "></iframe>
+        </div>
+        <div id="tabs-3" style="padding: 0em 1em;" class="row content">
+          
+
+
+        </div>
+
+
+
+      </div>
+  </body>
+  <script>
+// add listener to disable scroll
+function noscroll() {
+  window.scrollTo( 0, 0 );
+}
+window.addEventListener('scroll', noscroll);
+document.getElementById('tabs-1').style["height"]=($(window).height()+60)+"px";
+document.getElementById('f1').style["height"]=($(window).height()+60)+"px";
+document.getElementById('tabs-2').style["height"]=$(window).height()+"px";
+document.getElementById('f2').style["height"]=$(window).height()+"px";
+document.getElementById('tabs-3').height=$(window).height()-50;
+function load_js_procesing()
+		   {
+          var parent= document.getElementById('scketch_preview');
+          //Capturamos la imagen actual del canvas para cargarla en el setup
+          var canvas_pjs = document.getElementById('pjs');
+          if(canvas_pjs != null){
+            var canvas_size_w = document.getElementById('pjs').width;
+            var canvas_size_h = document.getElementById('pjs').height;
+            var uri_data_ultimo_frame = canvas_pjs.toDataURL();
+          }else{
+            var canvax_aux= document.createElement('canvas');
+            var canvas_size_w = canvax_aux.width;
+            var canvas_size_h = canvax_aux.height;         
+            var uri_data_ultimo_frame = canvax_aux.toDataURL();   
+            canvax.setAttribute("id", "pjs");
+            parent.appendChild(canvax);
+          }
+
+		      
+		      parent.removeChild( document.getElementById('scriptProcessing') );
+		      parent.removeChild( document.getElementById('pjs') );
+		      var script= document.createElement('script');
+		      script.type= 'application/processing';
+		      script.id= "scriptProcessing";
+		      script.setAttribute("data-processing-target", "pjs");          
+
+		      var code_processing = "// Created with AstralTrip\n";
+          code_processing = code_processing + 'String uri_primer_frame="'+ uri_data_ultimo_frame +'";\n'
+		      code_processing = code_processing + "var mapVariables = new Map();\nPImage primer_frame;bool restored_screenshot=!"+need_to_restore_snapshot+";"
+
+          //code_processing = code_processing + "void make_screenshot(){save('last.png');}\n"
+		      code_processing = code_processing + "void setup(){primer_frame=loadImage(uri_primer_frame);size("+canvas_size_w+", "+canvas_size_h+");  " + "}\n"	// TODO Declarar variables globales	
+		      code_processing = code_processing + "void draw() { if(!restored_screenshot){image(primer_frame,0,0);restored_screenshot=true;}" + Blockly.JavaScript.workspaceToCode(workspacePlayground); + "";	 
+		      code_processing = code_processing + "}\n"
+		      script.innerHTML= code_processing ;
+		  
+		      var canvax= document.createElement('canvas');
+		      canvax.setAttribute("id", "pjs");
+		      //canvax.setAttribute("data-processing-sources", "prueba2.pde");
+		      parent.appendChild(canvax);
+		      parent.appendChild(script);
+          console.log("apendeado");
+		      //Processing.loadSketchFromSources(document.getElementById("pjs"),["prueba2.pde"]);
+		      
+		      Processing.reload();
+          need_to_restore_snapshot="true";
+		   }
+
+</script>
+
+
+</html>

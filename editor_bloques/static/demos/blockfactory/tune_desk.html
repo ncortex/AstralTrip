@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+    <style> body {padding: 0; margin: 0;} </style>
+    <script src="vendor/jquery-ui-1.12.1/external/jquery/jquery.js"></script>  
+    <script src="vendor/stash/stash.js"></script>
+  </head>
+  <body>
+  <div id="mesa">
+  
+  </div>
+  
+     <script>
+     
+     function updateVariableValue(variableaactualizar){
+     	console.log(variableaactualizar['id']);
+     	stash.set(variableaactualizar['id'],document.querySelector("#"+variableaactualizar['id']).value);
+     }
+     
+    function createElementFromHTML(htmlString) {
+	  var div = document.createElement('div');
+	  div.innerHTML = htmlString.trim();
+
+	  // Change this to div.childNodes to support multiple top-level nodes
+	  return div.childNodes; 
+	}
+    
+	function getUrlVars()
+	{
+		    var vars = [], hash;
+		    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+		    for(var i = 0; i < hashes.length; i++)
+		    {
+		            hash = hashes[i].split('=');                        
+		            vars[hash[0]] = hash[1];
+		    }
+		    return vars;
+	}
+	var url_vars = getUrlVars();
+	var contador=0;
+	console.log(url_vars)
+	for( var i  in url_vars){
+	    var nuevo=document.createElement("input")
+	    var nuevo_label=document.createElement("p")
+	    nuevo_label.innerText=i;
+	    document.querySelector("#mesa").appendChild(nuevo_label);
+	     console.log(url_vars[i]);
+	    nuevo.id=i;
+	    if(url_vars[i]=="slider"){
+	    	nuevo.type="range";
+	    	nuevo.setAttribute("oninput", "updateVariableValue("+i+");" );
+	    }else{
+	    	nuevo.type="button";
+	    	nuevo.setAttribute("onclick", "stash.set('"+i+"',1);" );
+	    }
+	    document.querySelector("#mesa").appendChild(nuevo);	   
+	    //nuevo.onchange=" function(){console.log("+i+");};"
+	    //nuevo.setAttribute("oninput", stash.set(i,document.querySelector("#"+i).value));
+
+	    
+		    
+	}   
+
+  </script>
+  </body>
+</html>

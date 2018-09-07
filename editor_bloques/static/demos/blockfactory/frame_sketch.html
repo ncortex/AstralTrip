@@ -1,0 +1,37 @@
+<html>
+<head>
+     <!--  Processing.js  
+    <script language="javascript" type="text/javascript" src="processing.js"></script>-->
+    <script language="javascript" type="text/javascript" src="vendor/p5/p5.js"></script>-->
+</head>
+<body>
+
+<div id="bodydiv">
+
+</div>
+
+
+
+
+	<script type="text/javascript">
+      var script= document.createElement('script');
+      script.type= 'application/processing';
+      script.id= "scriptProcessing";
+      script.setAttribute("data-processing-target", "pjs");
+          var parent= document.getElementById('body');
+
+      
+	      var canvax= document.createElement('canvas');
+	      canvax.setAttribute("id", "pjs");
+	      //canvax.setAttribute("data-processing-sources", "prueba2.pde");
+	    //  parent.appendChild(canvax);
+	      //parent.appendChild(script);
+	      document.getElementById('bodydiv').appendChild(canvax);
+document.getElementById('bodydiv').appendChild(script);
+
+	      Processing.reload();
+      console.log("apendeado")
+
+  	</script>			
+</body>		      
+</html>		      

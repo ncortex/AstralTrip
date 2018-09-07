@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC
+    "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script src="vendor/jquery-ui-1.12.1/external/jquery/jquery.js"></script>  
+    <script src="vendor/stash/stash.js"></script>
+
+    <script type="text/javascript">
+        var codigo = stash.get('codigo_actual');
+    </script>
+     <!--  Processing.js  
+    <script language="javascript" type="text/javascript" src="processing.js"></script>-->
+    <script language="javascript" type="text/javascript" src="vendor/p5/p5.js"></script>
+  </head>
+
+  <body id="body" class="" style="margin:0px">
+
+    
+    <script> console.log(codigo); </script>
+
+
+    <canvas id="pid"></canvas>
+    <div id="display_error"></div>
+    <script type="text/processing" data-processing-target="pjsCanvas" id="scriptetaso">
+      background(0);    
+    </script>
+    <script type="text/javascript">
+      var canvas = document.getElementById("pid");
+        var processingInstance = new Processing(canvas, codigo);
+      function reload_code(){
+        document.getElementById("scriptetaso").innerHTML=codigo;
+      }
+      reload_code();
+      Processing.reload();
+    </script>
+  </body>
+</html>
